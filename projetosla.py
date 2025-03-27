@@ -40,5 +40,64 @@ class Reserva(Base):
     data_pedido = Column(DateTime, default=datetime.utcnow, nullable=False) 
     data_reserva = Column(DateTime, nullable=False)
 
-
 Base.metadata.create_all(db)
+
+# ---------------------------usuário-----------------------------------
+#cadastro
+def registrar_usuario():
+    nome = input("Digite seu nome: ")
+    cpf = input("Digite seu CPF: ")
+    senha = input("Digite sua senha: ")
+
+    if session.query(Clientes).filter_by(cpf=cpf).first():
+        print("Erro: CPF já cadastrado!")
+        return
+
+    novo_cliente = Clientes(nome=nome, cpf=cpf, password="")
+    novo_cliente.set_password(senha) 
+
+    session.add(novo_cliente)
+    session.commit()
+    print("Usuário cadastrado com sucesso!")
+
+#Entrar
+def entrar_usuario():
+    cpf = input("Digite seu CPF: ")
+    senha = input("Digite sua senha: ")
+
+    cliente = session.query(Clientes).filter_by(cpf=cpf).first()
+    if not cliente:
+        print("Erro: Usuário não encontrado!")
+        return
+
+    if cliente.check_password(senha):
+        print(f"Bem-vindo, {cliente.nome}!")
+    else:
+        print("Erro: Senha incorreta!")
+
+
+#Menu
+while True:
+    print("\n1 - Registrar usuário")
+    print("2 - Entrar")
+    print("3 - Sair")
+    opcao = input("Escolha uma opção: ")
+
+    if opcao == "1":
+        registrar_usuario()
+    elif opcao == "2":
+        entrar_usuario()
+    elif opcao == "3":
+        print("Saindo...")
+        break
+    else:
+        print("Opção inválida! Tente novamente.")
+
+
+#--------------------------reserva------------------------------------
+#Fazer Reserva
+#Ver a sua Reserva 
+#Editar Reserva
+#Excluir Reserva
+
+
