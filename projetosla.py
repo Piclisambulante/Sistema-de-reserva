@@ -71,7 +71,7 @@ def menu_principal():
     else:
         print("Opção inválida!")
         sleep(2)
-        return True
+        menu_principal()
 
 # Cadastro
 def registrar_usuario():
@@ -155,7 +155,7 @@ def menu_reserva():
     else:
         print("Opção inválida!")
         sleep(2)
-        return True
+        menu_reserva()
 
 # Fazer reserva
 def fazer_reserva():
@@ -341,3 +341,4 @@ def iniciar_sistema():
             break
 
 iniciar_sistema()
+
