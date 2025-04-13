@@ -263,7 +263,7 @@ def ver_locacoes():
     if not reservas:
         print("Você não tem locações registradas.")
         input("Pressione 'ENTER' para continuar...")
-        return
+        menu_reserva()
 
     print("Suas locações registradas:")
     for reserva in reservas:
